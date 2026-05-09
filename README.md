@@ -80,8 +80,8 @@ Base de datos
 
 - Se usó una arquitectura por capas para separar controladores, lógica de negocio y acceso a datos.
 - El perfil `dev` usa H2 para pruebas locales rápidas, con carga de datos iniciales mediante `data.sql`.
-- El perfil `prod` usa PostgreSQL y `ddl-auto=validate` para obligar a que el esquema esté alineado con la entidad.
-- Las migraciones SQL de producción están en `src/main/resources/db/migration` para que Railway y Docker Compose trabajen con una base real.
+- El perfil `prod` usa PostgreSQL con `ddl-auto=update` y Flyway deshabilitado en Railway para evitar el bloqueo con PostgreSQL 18.3.
+- Las migraciones SQL de producción quedan como referencia en `src/main/resources/db/migration`; en Railway el esquema lo crea JPA al arrancar.
 - El Dockerfile copia primero `pom.xml` para aprovechar la caché de capas y reduce la imagen final a una base JRE.
 
 ## Prerrequisitos
@@ -169,12 +169,16 @@ curl -X POST http://localhost:8080/api/productos -H "Content-Type: application/j
 2. Agregar un servicio PostgreSQL en el proyecto de Railway.
 3. Configurar estas variables en el servicio de la aplicación:
 
-| Variable               | Valor esperado                                     |
-| ---------------------- | -------------------------------------------------- |
-| SPRING_PROFILES_ACTIVE | prod                                               |
-| DATABASE_URL           | referencia al servicio PostgreSQL de Railway       |
-| DB_USER                | referencia a la variable del usuario de PostgreSQL |
-| DB_PASS                | referencia a la contraseña de PostgreSQL           |
+| Variable               | Valor esperado                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| SPRING_PROFILES_ACTIVE | prod                                                                                                   |
+| DATABASE_URL           | `jdbc:postgresql://${{Postgres.PGHOST}}:${{Postgres.PGPORT}}/${{Postgres.PGDATABASE}}?sslmode=require` |
+| DB_USER                | `${{Postgres.PGUSER}}`                                                                                 |
+| DB_PASS                | `${{Postgres.PGPASSWORD}}`                                                                             |
+
+Importante: sustituye `Postgres` por el nombre exacto del servicio de PostgreSQL que ves en Railway. El nombre debe coincidir carácter por carácter con la tarjeta del servicio. No copies la variable `DATABASE_URL` que muestra el servicio de PostgreSQL tal como viene, porque esa es para conexión interna y no tiene formato JDBC; en la app usa la referencia construida arriba.
+
+En el panel de Railway, pega cada dato en dos campos separados: `Key` y `Value`. En `Value` pega solo el contenido, sin repetir el nombre de la variable. Por ejemplo, en `DATABASE_URL` el valor debe empezar directamente con `jdbc:postgresql://`, no con `DATABASE_URL=`.
 
 4. Generar el dominio público desde Networking.
 5. Verificar:
