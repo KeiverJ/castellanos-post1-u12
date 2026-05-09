@@ -22,6 +22,13 @@ class Post1U12ApplicationTests {
     private MockMvc mockMvc;
 
     @Test
+    void debeResponderHealthEnEstadoUp() throws Exception {
+        mockMvc.perform(get("/actuator/health"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("UP"));
+    }
+
+    @Test
     void debeListarProductosSembrados() throws Exception {
         mockMvc.perform(get("/api/productos"))
                 .andExpect(status().isOk())
