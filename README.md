@@ -156,7 +156,7 @@ curl -X POST http://localhost:8080/api/productos -H "Content-Type: application/j
 
 | Método | Ruta                | Descripción                         |
 | ------ | ------------------- | ----------------------------------- |
-| GET    | /                   | Página raíz con accesos rápidos      |
+| GET    | /                   | Página raíz con accesos rápidos     |
 | GET    | /api/productos      | Lista todos los productos           |
 | GET    | /api/productos/{id} | Obtiene un producto por id          |
 | POST   | /api/productos      | Crea un producto                    |
@@ -185,9 +185,11 @@ En el panel de Railway, pega cada dato en dos campos separados: `Key` y `Value`.
 5. Verificar:
 
 ```bash
-curl https://tu-dominio.up.railway.app/actuator/health
-curl https://tu-dominio.up.railway.app/api/productos
+curl https://castellanos-post1-u12-production.up.railway.app/actuator/health
+curl https://castellanos-post1-u12-production.up.railway.app/api/productos
 ```
+
+URL pública final: https://castellanos-post1-u12-production.up.railway.app/
 
 ## Pruebas ejecutadas
 
@@ -203,7 +205,8 @@ curl https://tu-dominio.up.railway.app/api/productos
 - Si la aplicación no encuentra `productos`, revisar que las migraciones o la inicialización de datos hayan corrido correctamente.
 - Si Docker Compose no levanta, revisar que Docker Desktop esté en ejecución.
 
-## Evidencia pendiente para la entrega final
+## Evidencia final
 
-- Agregar la URL pública real de Railway en el informe final.
-- Guardar capturas del panel de Railway, del healthcheck y de al menos tres endpoints en la carpeta `capturas/` antes de generar el PDF.
+- URL pública de Railway: https://castellanos-post1-u12-production.up.railway.app/
+- Capturas guardadas en la carpeta `capturas/`.
+- Evidencia revisada: panel de Railway, healthcheck, listado, detalle, creación y actualización de productos.
