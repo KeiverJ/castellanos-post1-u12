@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -26,6 +27,11 @@ public class GlobalExceptionHandler {
                 .map(this::formatFieldError)
                 .toList();
         return build(HttpStatus.BAD_REQUEST, "La solicitud contiene errores de validación", request.getRequestURI(), details);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ApiError> handleNotFound(NoResourceFoundException exception, HttpServletRequest request) {
+        return build(HttpStatus.NOT_FOUND, "Ruta no encontrada", request.getRequestURI(), List.of(exception.getClass().getSimpleName()));
     }
 
     @ExceptionHandler(Exception.class)

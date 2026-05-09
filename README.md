@@ -156,6 +156,7 @@ curl -X POST http://localhost:8080/api/productos -H "Content-Type: application/j
 
 | Método | Ruta                | Descripción                         |
 | ------ | ------------------- | ----------------------------------- |
+| GET    | /                   | Página raíz con accesos rápidos      |
 | GET    | /api/productos      | Lista todos los productos           |
 | GET    | /api/productos/{id} | Obtiene un producto por id          |
 | POST   | /api/productos      | Crea un producto                    |
