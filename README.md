@@ -210,3 +210,17 @@ URL pública final: https://castellanos-post1-u12-production.up.railway.app/
 - URL pública de Railway: https://castellanos-post1-u12-production.up.railway.app/
 - Capturas guardadas en la carpeta `capturas/`.
 - Evidencia revisada: panel de Railway, healthcheck, listado, detalle, creación y actualización de productos.
+
+## Evidencia visual
+
+![Panel de Railway](capturas/01-railway-panel.png)
+
+![Healthcheck UP](capturas/02-healthcheck.png)
+
+![Listado de productos](capturas/03-productos-lista.png)
+
+![Detalle de producto](capturas/04-producto-detalle.png)
+
+![Crear producto](capturas/05-producto-crear.png)
+
+![Producto actualizado](capturas/06-producto-actualizado.png)
